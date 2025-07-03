@@ -1,11 +1,125 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const { signIn, loading, error, clearError, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/home");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleInputChange = (field, value) => {
+    // Clear error when user starts typing
+    if (error) {
+      clearError();
+    }
+
+    // Clear success message when user starts typing
+    if (successMessage) {
+      setSuccessMessage("");
+    }
+
+    // Update the appropriate field
+    if (field === "email") setEmail(value);
+    if (field === "password") setPassword(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      return;
+    }
+
+    const result = await signIn(email, password);
+    if (result.success) {
+      setSuccessMessage("Sign in successful! Redirecting to home...");
+      setEmail("");
+      setPassword("");
+      // Redirect to home after 1 second
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000);
+    }
+  };
+
   return (
     <div>
-      SIgnin page
+      <h1>SignIn</h1>
+      <form onSubmit={handleSubmit}>
+        {/* Show Error Messages */}
+        {error && (
+          <div
+            style={{
+              color: "red",
+              backgroundColor: "#ffebee",
+              padding: "10px",
+              marginBottom: "10px",
+              border: "1px solid #f44336",
+              borderRadius: "4px",
+            }}
+          >
+            {error}
+          </div>
+        )}
+
+        {/* Show Success Messages */}
+        {successMessage && (
+          <div
+            style={{
+              color: "green",
+              backgroundColor: "#e8f5e8",
+              padding: "10px",
+              marginBottom: "10px",
+              border: "1px solid #4caf50",
+              borderRadius: "4px",
+            }}
+          >
+            {successMessage}
+          </div>
+        )}
+
+        <div>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => handleInputChange("email", e.target.value)}
+            disabled={loading}
+            placeholder="something@email.com"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => handleInputChange("password", e.target.value)}
+            disabled={loading}
+            placeholder="Password"
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={loading || !email.trim() || !password.trim()}
+          >
+            {loading ? "Signing In..." : "Sign In"}
+          </button>
+
+          <p>
+            Don't have an account?{" "}
+            <button type="button" onClick={() => navigate("/signup")}>
+              Sign Up
+            </button>
+          </p>
+        </div>
+      </form>
     </div>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;

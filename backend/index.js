@@ -3,6 +3,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import connectDB from "./config/database.js";
+import cors from "cors";
 import {
   blogValidator,
   signInBodySchema,
@@ -15,6 +16,7 @@ import authMiddleware from "./middleware/auth.js";
 config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT;
@@ -39,8 +41,19 @@ app.post("/signup", async (req, res) => {
 
     if (existingUser) {
       return res.status(409).json({
+        success: false,
         message: "User already exists",
-        error: "Username is already taken",
+        error: "Email is already registered",
+      });
+    }
+
+    const existingUsername = await userModel.findOne({ username: username });
+
+    if (existingUsername) {
+      return res.status(409).send({
+        success: false,
+        message: "Username already taken",
+        error: "Please choose a different username",
       });
     }
 
@@ -53,11 +66,13 @@ app.post("/signup", async (req, res) => {
     });
 
     return res.status(201).json({
+      success: true,
       message: "User created successfully",
       userId: user._id,
     });
   } catch (error) {
     return res.status(500).json({
+      success: false,
       message: "Internal server error",
       error: error.message,
     });
@@ -84,6 +99,7 @@ app.post("/signin", async (req, res) => {
 
     if (!user) {
       return res.status(409).json({
+        success: false,
         message: "Invalid Credentials",
         error: "User Not Exists",
       });
@@ -93,6 +109,7 @@ app.post("/signin", async (req, res) => {
 
     if (!user || !isPasswordCorrect) {
       return res.status(409).json({
+        success: false,
         message: "Invalid Password",
         error: "Password is ",
       });
@@ -104,12 +121,13 @@ app.post("/signin", async (req, res) => {
     );
 
     res.status(200).send({
-      status: 200,
+      success: true,
       message: "Signed In Successfully",
       token: token,
     });
   } catch (error) {
     return res.status(500).json({
+        success: false,
       message: "Internal server error",
       error: error.message,
     });
