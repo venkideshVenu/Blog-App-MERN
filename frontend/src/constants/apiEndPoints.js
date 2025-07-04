@@ -7,4 +7,5 @@ export const ENDPOINTS = {
   USERBLOGS: "/blogs",
   BLOG: "/blog",
   DELETEBLOG: "/deleteBlog",
+  GETUSER :'/profile'
 };

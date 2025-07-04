@@ -74,11 +74,58 @@ export const BlogProvider = ({ children }) => {
       );
 
       setBlogs(response.data.blogs);
-      return true
+      return true;
     } catch (error) {
       setError("Error Fetching Blogs");
       console.error("Error Fetching Blogs".error);
-      return true
+      return true;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getBlogById = async (id) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await axios.get(`${API_BASE_URL}${ENDPOINTS.BLOG}/${id}`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+      console.log(response)
+      return response.data.blog;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch blog";
+      setError(errorMessage);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteBlog = async (id) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await  axios.delete(
+        `${API_BASE_URL}${ENDPOINTS.DELETEBLOG}/${id}`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      return true;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch blog";
+      setError(errorMessage);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -91,6 +138,8 @@ export const BlogProvider = ({ children }) => {
     getAllBlogs,
     getUserBlogs,
     createBlog,
+    getBlogById,
+    deleteBlog,
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

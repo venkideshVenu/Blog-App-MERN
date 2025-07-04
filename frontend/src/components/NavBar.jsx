@@ -36,7 +36,7 @@ export default function NavBar() {
         Create Blog
       </div>
       <div 
-        onClick={() => navigate("/app/home")}
+        onClick={() => navigate("/auth/profile")}
         style={{ cursor: "pointer", padding: "0.5rem 1rem" }}
       >
         Profile

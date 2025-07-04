@@ -198,6 +198,67 @@ app.post("/createBlog", authMiddleware, async (req, res) => {
   }
 });
 
+// update / edit a blog
+app.put('/editBlog/:id', authMiddleware, async (req, res) => {
+  try {
+    const parsedData = blogValidator.safeParse(req.body);
+
+    if (!parsedData.success) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Input Fields",
+        error: parsedData.error.errors,
+      });
+    }
+
+    const { title, content } = parsedData.data;
+    const blogId = req.params.id;
+
+    // Find the blog first
+    const existingBlog = await blogModel.findById(blogId);
+
+    if (!existingBlog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+        error: "No blog exists with the provided ID",
+      });
+    }
+
+    // Check if the user is the author of the blog
+    if (existingBlog.author !== req.user.username) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized",
+        error: "You can only edit your own blogs",
+      });
+    }
+
+    // Update the blog
+    const updatedBlog = await blogModel.findByIdAndUpdate(
+      blogId,
+      {
+        title: title,
+        content: content,
+        updatedAt: new Date(),
+      },
+      { new: true } // Return the updated document
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Blog updated successfully",
+      blog: updatedBlog,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+});
+
 // get a blog using id
 app.get("/blog/:id", authMiddleware, async (req, res) => {
   try {
@@ -237,6 +298,14 @@ app.delete("/deleteBlog/:id", authMiddleware, async (req, res) => {
     });
   }
 });
+
+// get user information
+app.get('/profile',authMiddleware,(req, res) =>{
+  res.status(200).send({
+    message :"Profile Retrieved Successfully",
+    user : req.user
+  })
+})
 
 // main function
 function main() {
