@@ -127,7 +127,7 @@ app.post("/signin", async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-        success: false,
+      success: false,
       message: "Internal server error",
       error: error.message,
     });
@@ -153,7 +153,7 @@ app.get("/blogs/all", authMiddleware, async (req, res) => {
 // get the blogs of the current user
 app.get("/blogs", authMiddleware, async (req, res) => {
   try {
-    const blogs = await blogModel.find({ author: req.user._id });
+    const blogs = await blogModel.find({ author: req.user.username });
     res.status(200).send({
       message: "All User blogs Retreived Successfully",
       blogs: blogs,
@@ -183,7 +183,7 @@ app.post("/createBlog", authMiddleware, async (req, res) => {
     const blog = await blogModel.create({
       title: title,
       content: content,
-      author: req.user._id,
+      author: req.user.username,
     });
 
     res.status(201).send({

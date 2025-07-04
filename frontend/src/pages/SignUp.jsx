@@ -13,7 +13,7 @@ function SignUp() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home");
+      navigate("/app/home");
     }
   }, [isAuthenticated, navigate]);
 
@@ -48,7 +48,7 @@ function SignUp() {
       setPassword("");
       // Redirect to signin after 2 seconds
       setTimeout(() => {
-        navigate("/signin");
+        navigate("/auth/signin");
       }, 2000);
     }
   };
@@ -126,7 +126,7 @@ function SignUp() {
 
           <p>
             Already have an account?{" "}
-            <button type="button" onClick={() => navigate("/signin")}>
+            <button type="button" onClick={() => navigate("/auth/signin")}>
               Sign In
             </button>
           </p>

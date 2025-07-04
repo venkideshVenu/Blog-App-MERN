@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
 import { API_BASE_URL, ENDPOINTS } from "../constants/apiEndPoints";
+import { useNavigate } from "react-router";
 
 const AuthContext = createContext();
 
@@ -22,6 +23,8 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [initializing, setInitializing] = useState(true);
 
+  const navigate = useNavigate();
+
   // To clear the user token initially
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,6 +36,12 @@ export const AuthProvider = ({ children }) => {
         console.error("Error parsing user data:", error);
         localStorage.removeItem("token");
       }
+    } else {
+      setIsAuthenticated(false);
+      setTimeout(() => {
+        setError("User Not Found");
+        navigate("/auth/signin");
+      }, 2000);
     }
     setInitializing(false);
   }, []);
@@ -144,12 +153,8 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      // Clear storage
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
 
-      // Reset state
-      setUser(null);
       setIsAuthenticated(false);
       setError(null);
     } catch (error) {

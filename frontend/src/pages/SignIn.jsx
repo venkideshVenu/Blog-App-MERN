@@ -11,7 +11,7 @@ function SignIn() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home");
+      navigate("/app/home");
     }
   }, [isAuthenticated, navigate]);
 
@@ -44,7 +44,7 @@ function SignIn() {
       setPassword("");
       // Redirect to home after 1 second
       setTimeout(() => {
-        navigate("/home");
+        navigate("/app/home");
       }, 1000);
     }
   };
@@ -112,7 +112,7 @@ function SignIn() {
 
           <p>
             Don't have an account?{" "}
-            <button type="button" onClick={() => navigate("/signup")}>
+            <button type="button" onClick={() => navigate("/auth/signup")}>
               Sign Up
             </button>
           </p>
