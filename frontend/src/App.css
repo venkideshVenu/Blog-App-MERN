@@ -1,42 +1,59 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App specific styles */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Layout adjustments */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-content {
+    padding: 0;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.card {
-  padding: 2em;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }

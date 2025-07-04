@@ -1,196 +1,84 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/pages/LandingPage.css";
 
 function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f8f9fa",
-      }}
-    >
+    <div className="landing-page">
       {/* Header */}
-      <header
-        style={{
-          backgroundColor: "#fff",
-          padding: "1rem 2rem",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            color: "#007bff",
-          }}
-        >
-          📝 BlogApp
-        </div>
-        <div>
+      <header className="landing-header">
+        <div className="landing-logo">📝 BlogApp</div>
+        <nav className="landing-nav">
           <button
             onClick={() => navigate("/auth/signin")}
-            style={{
-              padding: "0.5rem 1rem",
-              marginRight: "1rem",
-              backgroundColor: "transparent",
-              border: "1px solid #007bff",
-              color: "#007bff",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
+            className="nav-button outline"
           >
-            Sign In
+            🔐 Sign In
           </button>
           <button
             onClick={() => navigate("/auth/signup")}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
+            className="nav-button primary"
           >
-            Get Started
+            🚀 Get Started
           </button>
-        </div>
+        </nav>
       </header>
 
       {/* Hero Section */}
-      <section
-        style={{
-          textAlign: "center",
-          padding: "4rem 2rem",
-          backgroundColor: "#fff",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "3rem",
-            marginBottom: "1rem",
-            color: "#333",
-          }}
-        >
-          Share Your Stories with the World
-        </h1>
-        <p
-          style={{
-            fontSize: "1.2rem",
-            color: "#666",
-            maxWidth: "600px",
-            margin: "0 auto 2rem auto",
-            lineHeight: "1.6",
-          }}
-        >
+      <section className="landing-hero">
+        <h1 className="hero-title">Share Your Stories with the World</h1>
+        <p className="hero-subtitle">
           Create, publish, and share your thoughts with our simple and powerful
           blogging platform. Join thousands of writers who trust BlogApp to tell
           their stories.
         </p>
-        <button
-          onClick={() => navigate("/auth/signup")}
-          style={{
-            padding: "1rem 2rem",
-            fontSize: "1.1rem",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            marginBottom: "2rem",
-          }}
-        >
-          Start Writing Today
-        </button>
+        <div className="hero-actions">
+          <button
+            onClick={() => navigate("/auth/signup")}
+            className="hero-button primary"
+          >
+            ✨ Start Writing Today
+          </button>
+          <button
+            onClick={() => navigate("/auth/signin")}
+            className="hero-button secondary"
+          >
+            📚 Explore Blogs
+          </button>
+        </div>
       </section>
 
       {/* Features Section */}
-      <section
-        style={{
-          padding: "4rem 2rem",
-          backgroundColor: "#f8f9fa",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "2.5rem",
-            marginBottom: "3rem",
-            color: "#333",
-          }}
-        >
-          Why Choose BlogApp?
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "2rem",
-            maxWidth: "1200px",
-            margin: "0 auto",
-          }}
-        >
+      <section className="landing-features">
+        <h2 className="features-title">Why Choose BlogApp?</h2>
+        <div className="features-grid">
           {/* Feature 1 */}
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "2rem",
-              borderRadius: "8px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              textAlign: "center",
-            }}
-          >
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>✍️</div>
-            <h3 style={{ color: "#333", marginBottom: "1rem" }}>
-              Easy Writing
-            </h3>
-            <p style={{ color: "#666", lineHeight: "1.6" }}>
+          <div className="feature-card">
+            <div className="feature-icon">✍️</div>
+            <h3 className="feature-title">Easy Writing</h3>
+            <p className="feature-description">
               Simple and intuitive editor that lets you focus on your content.
               No distractions, just pure writing experience.
             </p>
           </div>
 
           {/* Feature 2 */}
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "2rem",
-              borderRadius: "8px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              textAlign: "center",
-            }}
-          >
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🌐</div>
-            <h3 style={{ color: "#333", marginBottom: "1rem" }}>
-              Global Reach
-            </h3>
-            <p style={{ color: "#666", lineHeight: "1.6" }}>
+          <div className="feature-card">
+            <div className="feature-icon">🌐</div>
+            <h3 className="feature-title">Global Reach</h3>
+            <p className="feature-description">
               Share your stories with readers from around the world. Your
               content deserves a global audience.
             </p>
           </div>
 
           {/* Feature 3 */}
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "2rem",
-              borderRadius: "8px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              textAlign: "center",
-            }}
-          >
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🔒</div>
-            <h3 style={{ color: "#333", marginBottom: "1rem" }}>
-              Secure & Private
-            </h3>
-            <p style={{ color: "#666", lineHeight: "1.6" }}>
+          <div className="feature-card">
+            <div className="feature-icon">🔒</div>
+            <h3 className="feature-title">Secure & Private</h3>
+            <p className="feature-description">
               Your data is safe with us. Advanced security measures keep your
               content and personal information protected.
             </p>
@@ -202,7 +90,7 @@ function LandingPage() {
       <section
         style={{
           padding: "4rem 2rem",
-          backgroundColor: "#007bff",
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           color: "white",
           textAlign: "center",
         }}
@@ -274,7 +162,7 @@ function LandingPage() {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                backgroundColor: "#007bff",
+                backgroundColor: "#667eea",
                 color: "white",
                 width: "60px",
                 height: "60px",
@@ -298,7 +186,7 @@ function LandingPage() {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                backgroundColor: "#007bff",
+                backgroundColor: "#667eea",
                 color: "white",
                 width: "60px",
                 height: "60px",
@@ -322,7 +210,7 @@ function LandingPage() {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                backgroundColor: "#007bff",
+                backgroundColor: "#667eea",
                 color: "white",
                 width: "60px",
                 height: "60px",
@@ -379,7 +267,7 @@ function LandingPage() {
           style={{
             padding: "1rem 2rem",
             fontSize: "1.1rem",
-            backgroundColor: "#007bff",
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             color: "white",
             border: "none",
             borderRadius: "8px",
@@ -395,8 +283,8 @@ function LandingPage() {
             padding: "1rem 2rem",
             fontSize: "1.1rem",
             backgroundColor: "transparent",
-            color: "#007bff",
-            border: "1px solid #007bff",
+            color: "#667eea",
+            border: "1px solid #667eea",
             borderRadius: "8px",
             cursor: "pointer",
           }}

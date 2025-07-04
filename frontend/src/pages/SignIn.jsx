@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import "../styles/pages/Auth.css";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -50,74 +51,72 @@ function SignIn() {
   };
 
   return (
-    <div>
-      <h1>SignIn</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Show Error Messages */}
-        {error && (
-          <div
-            style={{
-              color: "red",
-              backgroundColor: "#ffebee",
-              padding: "10px",
-              marginBottom: "10px",
-              border: "1px solid #f44336",
-              borderRadius: "4px",
-            }}
-          >
-            {error}
-          </div>
-        )}
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <h1 className="auth-title">🔐 Welcome Back</h1>
+          <p className="auth-subtitle">
+            Sign in to continue your blogging journey
+          </p>
+        </div>
 
-        {/* Show Success Messages */}
-        {successMessage && (
-          <div
-            style={{
-              color: "green",
-              backgroundColor: "#e8f5e8",
-              padding: "10px",
-              marginBottom: "10px",
-              border: "1px solid #4caf50",
-              borderRadius: "4px",
-            }}
-          >
-            {successMessage}
-          </div>
-        )}
+        <form onSubmit={handleSubmit} className="auth-form">
+          {/* Show Error Messages */}
+          {error && <div className="message error">{error}</div>}
 
-        <div>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            disabled={loading}
-            placeholder="something@email.com"
-            required
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => handleInputChange("password", e.target.value)}
-            disabled={loading}
-            placeholder="Password"
-            required
-          />
+          {/* Show Success Messages */}
+          {successMessage && (
+            <div className="message success">{successMessage}</div>
+          )}
+
+          <div className="form-group">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              disabled={loading}
+              className="form-input"
+              placeholder="📧 Enter your email address"
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => handleInputChange("password", e.target.value)}
+              disabled={loading}
+              className="form-input"
+              placeholder="🔑 Enter your password"
+              required
+              autoComplete="current-password"
+            />
+          </div>
 
           <button
             type="submit"
             disabled={loading || !email.trim() || !password.trim()}
+            className="submit-button"
           >
             {loading ? "Signing In..." : "Sign In"}
           </button>
+        </form>
 
+        <div className="auth-footer">
           <p>
-            Don't have an account?{" "}
-            <button type="button" onClick={() => navigate("/auth/signup")}>
+            Don't have an account?
+            <button
+              type="button"
+              onClick={() => navigate("/auth/signup")}
+              className="auth-link"
+            >
               Sign Up
             </button>
           </p>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

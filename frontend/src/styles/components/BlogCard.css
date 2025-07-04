@@ -1,0 +1,129 @@
+.blog-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border: none;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  border-left: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+.blog-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover::before {
+  transform: scaleX(1);
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+  border-left-color: #667eea;
+}
+
+.blog-card-title {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.blog-card-content {
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-author {
+  color: #718096;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.blog-card-author::before {
+  content: "✍️";
+  font-size: 1rem;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.blog-card-date {
+  color: #a0aec0;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.blog-card-read-more {
+  color: #667eea;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.blog-card-read-more:hover {
+  color: #764ba2;
+  transform: translateX(4px);
+}
+
+.blog-card-read-more::after {
+  content: "→";
+  transition: transform 0.2s ease;
+}
+
+.blog-card-read-more:hover::after {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .blog-card {
+    margin: 0.75rem 0;
+    padding: 1.25rem;
+  }
+
+  .blog-card-title {
+    font-size: 1.25rem;
+  }
+
+  .blog-card-content {
+    font-size: 0.9rem;
+  }
+}
